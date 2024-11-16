@@ -1,81 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Portfolio</title>
+    <title>Your Name - Developer</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    <div class="scroll-progress"></div>
+
     <nav class="navbar">
         <div class="nav-content">
-            <h1 class="logo">Your Name</h1>
+            <div class="logo">
+                <span class="logo-text">PORT<span class="logo-dot">.</span>FOLIO</span>
+            </div>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#work" class="nav-link">Work</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li>
+                    <a href="#contact" class="contact-btn">
+                        <span>Let's Talk</span>
+                        <svg width="10" height="10" viewBox="0 0 10 10">
+                            <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentColor" fill="none"/>
+                        </svg>
+                    </a>
+                </li>
             </ul>
+            <button class="menu-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
     <main>
         <section id="hero">
-            <h1>Hi, I'm [Your Name]</h1>
-            <p class="typewriter">Full-Stack Developer</p>
-            <div class="hero-cta">
-                <a href="#projects" class="cta-button">View My Work</a>
-                <a href="#contact" class="cta-button secondary">Contact Me</a>
-            </div>
-        </section>
-
-        <section id="about">
-            <h2>About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>I'm a passionate developer focused on creating clean, user-friendly solutions. My journey in tech started with [your background], and I've since worked with various technologies including:</p>
-                    <ul class="skills-list">
-                        <li>JavaScript (React, Node.js)</li>
-                        <li>Python</li>
-                        <li>HTML/CSS</li>
-                        <!-- Add your actual skills -->
-                    </ul>
-                </div>
-                <!-- You can add an image of yourself here -->
-            </div>
-        </section>
-
-        <section id="projects">
-            <h2>My Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <!-- Add project screenshot -->
-                        <img src="project1.jpg" alt="Project 1" />
-                    </div>
-                    <h3>Project Name</h3>
-                    <p>A brief description of what this project does and what technologies you used.</p>
-                    <div class="tech-stack">
-                        <span>React</span>
-                        <span>Node.js</span>
-                        <span>MongoDB</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" target="_blank" class="project-button">Live Demo</a>
-                        <a href="#" target="_blank" class="project-button">GitHub</a>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="mega-text">
+                        <div class="animate-text"><span>We Create</span></div>
+                        <div class="animate-text"><span>Websites That</span></div>
+                        <div class="animate-text highlight-text"><span>Drive Results</span></div>
+                    </h1>
+                    <p class="hero-subtitle">Full-stack development & modern web solutions</p>
+                    <div class="hero-cta">
+                        <a href="#projects" class="cta-button">View Projects</a>
                     </div>
                 </div>
-                <!-- Add more project cards following this structure -->
+                <div class="hero-graphic">
+                    <div class="computer-container">
+                        <img src="websites-promo-unscreen.gif" alt="Computer Animation" class="computer-gif">
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="contact">
-            <h2>Contact Me</h2>
-            <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-                <a href="mailto:your.email@example.com">Email</a>
+        <section id="services" class="reveal">
+            <h2>not just websites, but tools for</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="number">01</span>
+                    <h3>Unique Design</h3>
+                    <p>Creating memorable and effective digital experiences that capture attention</p>
+                </div>
+                <div class="service-card">
+                    <span class="number">02</span>
+                    <h3>Easy to Use</h3>
+                    <p>Intuitive interfaces that work seamlessly across all devices</p>
+                </div>
+                <div class="service-card">
+                    <span class="number">03</span>
+                    <h3>Full Service</h3>
+                    <p>From concept to launch, including maintenance and optimization</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cases" class="reveal">
+            <h2>Featured Projects</h2>
+            <div class="cases-grid">
+                <article class="case-card">
+                    <div class="case-image">
+                        <img src="project1.jpg" alt="Project 1">
+                    </div>
+                    <div class="case-content">
+                        <h3>Project Name</h3>
+                        <p>Category</p>
+                        <a href="#" class="view-case">View Case</a>
+                    </div>
+                </article>
+                <!-- Add more case cards -->
             </div>
         </section>
     </main>
+
+    <script src="script.js"></script>
 </body>
 </html> 
