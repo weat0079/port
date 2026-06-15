@@ -1,0 +1,28 @@
+# Copy to config.yaml and edit. Run with:  python -m golf_scraper.main -c config.yaml
+#
+# Search
+query: "golf clubs"          # try also: "taylormade driver", "scotty cameron"
+location: ""                  # your Marketplace location slug/id (see README)
+min_price: 20
+max_price: 400
+radius_km: 40
+sort: "newest"               # "newest" or "best_match"
+max_scrolls: 8               # how far to scroll the results page (be gentle)
+
+# Browser
+headless: false              # keep false for the first login; true afterwards
+profile_dir: ".fb_profile"   # stores your Facebook login between runs
+
+# Resale economics (tune these to reality!)
+fee_pct: 0.13                # fees you pay when reselling (eBay ~13%)
+extra_costs: 15.0            # flat per-item cost: shipping, cleaning, gas
+min_margin: 0.40             # flag a deal at >= 40% profit margin
+
+# Output
+db: "golf_deals.db"
+limit: 25
+deals_only: false
+new_only: false
+# reference: "data/reference_prices.json"   # point at your own price book
+# csv: "deals.csv"
+# json: "deals.json"

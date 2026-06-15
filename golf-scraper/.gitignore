@@ -1,0 +1,12 @@
+# Persistent Facebook login profile — NEVER commit this (contains your session)
+.fb_profile/
+# Local data / outputs
+*.db
+deals.csv
+deals.json
+config.yaml
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

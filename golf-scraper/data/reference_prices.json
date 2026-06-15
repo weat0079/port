@@ -1,0 +1,54 @@
+{
+  "_comment": "Rough used-market resale values (USD) for common golf clubs in good condition. These are starting estimates only — edit them to match what items actually sell for in YOUR local market and on eBay 'sold' listings. 'keywords' are matched case-insensitively against the listing title; all words in a keyword group must appear.",
+  "currency": "USD",
+  "condition_multipliers": {
+    "new": 1.15,
+    "like new": 1.05,
+    "excellent": 1.0,
+    "good": 0.85,
+    "used": 0.8,
+    "fair": 0.65,
+    "poor": 0.45,
+    "for parts": 0.3
+  },
+  "references": [
+    {"keywords": ["taylormade", "stealth 2", "driver"], "category": "driver", "brand": "TaylorMade", "model": "Stealth 2 Driver", "resale": 230},
+    {"keywords": ["taylormade", "stealth", "driver"], "category": "driver", "brand": "TaylorMade", "model": "Stealth Driver", "resale": 190},
+    {"keywords": ["taylormade", "qi10", "driver"], "category": "driver", "brand": "TaylorMade", "model": "Qi10 Driver", "resale": 320},
+    {"keywords": ["taylormade", "sim2", "driver"], "category": "driver", "brand": "TaylorMade", "model": "SIM2 Driver", "resale": 170},
+    {"keywords": ["taylormade", "sim", "driver"], "category": "driver", "brand": "TaylorMade", "model": "SIM Driver", "resale": 150},
+    {"keywords": ["taylormade", "spider", "putter"], "category": "putter", "brand": "TaylorMade", "model": "Spider Putter", "resale": 140},
+    {"keywords": ["taylormade", "p790", "iron"], "category": "irons", "brand": "TaylorMade", "model": "P790 Irons", "resale": 600},
+    {"keywords": ["taylormade", "stealth", "iron"], "category": "irons", "brand": "TaylorMade", "model": "Stealth Irons", "resale": 450},
+
+    {"keywords": ["callaway", "paradym", "driver"], "category": "driver", "brand": "Callaway", "model": "Paradym Driver", "resale": 280},
+    {"keywords": ["callaway", "rogue", "st", "driver"], "category": "driver", "brand": "Callaway", "model": "Rogue ST Driver", "resale": 190},
+    {"keywords": ["callaway", "epic", "driver"], "category": "driver", "brand": "Callaway", "model": "Epic Driver", "resale": 160},
+    {"keywords": ["callaway", "mavrik", "driver"], "category": "driver", "brand": "Callaway", "model": "Mavrik Driver", "resale": 140},
+    {"keywords": ["callaway", "apex", "iron"], "category": "irons", "brand": "Callaway", "model": "Apex Irons", "resale": 550},
+    {"keywords": ["callaway", "rogue", "iron"], "category": "irons", "brand": "Callaway", "model": "Rogue Irons", "resale": 400},
+
+    {"keywords": ["titleist", "tsr2", "driver"], "category": "driver", "brand": "Titleist", "model": "TSR2 Driver", "resale": 300},
+    {"keywords": ["titleist", "tsr3", "driver"], "category": "driver", "brand": "Titleist", "model": "TSR3 Driver", "resale": 320},
+    {"keywords": ["titleist", "tsi", "driver"], "category": "driver", "brand": "Titleist", "model": "TSi Driver", "resale": 220},
+    {"keywords": ["titleist", "t100", "iron"], "category": "irons", "brand": "Titleist", "model": "T100 Irons", "resale": 650},
+    {"keywords": ["titleist", "ap2", "iron"], "category": "irons", "brand": "Titleist", "model": "AP2 Irons", "resale": 450},
+    {"keywords": ["titleist", "vokey", "wedge"], "category": "wedge", "brand": "Titleist", "model": "Vokey SM Wedge", "resale": 90},
+    {"keywords": ["scotty", "cameron"], "category": "putter", "brand": "Titleist", "model": "Scotty Cameron Putter", "resale": 320},
+
+    {"keywords": ["ping", "g430", "driver"], "category": "driver", "brand": "Ping", "model": "G430 Driver", "resale": 300},
+    {"keywords": ["ping", "g425", "driver"], "category": "driver", "brand": "Ping", "model": "G425 Driver", "resale": 210},
+    {"keywords": ["ping", "g410", "driver"], "category": "driver", "brand": "Ping", "model": "G410 Driver", "resale": 170},
+    {"keywords": ["ping", "i230", "iron"], "category": "irons", "brand": "Ping", "model": "i230 Irons", "resale": 700},
+    {"keywords": ["ping", "i210", "iron"], "category": "irons", "brand": "Ping", "model": "i210 Irons", "resale": 500},
+
+    {"keywords": ["cobra", "ltdx", "driver"], "category": "driver", "brand": "Cobra", "model": "LTDx Driver", "resale": 180},
+    {"keywords": ["cobra", "aerojet", "driver"], "category": "driver", "brand": "Cobra", "model": "Aerojet Driver", "resale": 200},
+
+    {"keywords": ["mizuno", "jpx", "iron"], "category": "irons", "brand": "Mizuno", "model": "JPX Irons", "resale": 550},
+    {"keywords": ["mizuno", "pro", "iron"], "category": "irons", "brand": "Mizuno", "model": "Mizuno Pro Irons", "resale": 700},
+
+    {"keywords": ["odyssey", "putter"], "category": "putter", "brand": "Odyssey", "model": "Odyssey Putter", "resale": 90},
+    {"keywords": ["cleveland", "rtx", "wedge"], "category": "wedge", "brand": "Cleveland", "model": "RTX Wedge", "resale": 70}
+  ]
+}
