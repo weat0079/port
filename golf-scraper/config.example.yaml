@@ -2,9 +2,9 @@
 #
 # Search
 query: "golf clubs"          # try also: "taylormade driver", "scotty cameron"
-location: ""                  # your Marketplace location slug/id (see README)
+location: "ottawa"            # Ottawa, Ontario, Canada (Marketplace location slug)
 min_price: 20
-max_price: 400
+max_price: 600               # CAD
 radius_km: 40
 sort: "newest"               # "newest" or "best_match"
 max_scrolls: 8               # how far to scroll the results page (be gentle)

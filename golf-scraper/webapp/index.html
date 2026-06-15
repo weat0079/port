@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#0a7d33">
+  <title>Golf Flip Finder · Ottawa</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark">⛳</span>
+      <div>
+        <h1>Golf Flip Finder</h1>
+        <p class="sub" id="meta-line">Ottawa, ON · loading…</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats" id="stats"></section>
+
+  <div class="controls">
+    <input type="search" id="search" placeholder="Search title, brand, model…" autocomplete="off">
+    <div class="control-row">
+      <label class="toggle">
+        <input type="checkbox" id="deals-only">
+        <span>Deals only</span>
+      </label>
+      <select id="sort">
+        <option value="deal_score">Best deal</option>
+        <option value="estimated_profit">Most profit</option>
+        <option value="margin_pct">Best margin</option>
+        <option value="price">Lowest price</option>
+      </select>
+    </div>
+  </div>
+
+  <main id="list" class="list"></main>
+
+  <footer class="app-footer">
+    <p>Estimates only — verify against real sold prices before buying.</p>
+    <p id="generated"></p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

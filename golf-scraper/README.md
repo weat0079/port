@@ -3,7 +3,11 @@
 Finds underpriced golf clubs on Facebook Marketplace and ranks them by how much
 profit you could make reselling them. It drives a **real browser you log into
 yourself**, estimates each club's resale value from a tunable price book, and
-sorts listings by expected profit and margin.
+sorts listings by expected profit and margin. Defaults are set for **Ottawa,
+Ontario** with prices in **CAD**, and it ships with a **mobile web dashboard**
+you can open on your phone.
+
+![dashboard preview](docs/dashboard.png)
 
 > ⚠️ **Read this first.** Scraping Facebook Marketplace is against Facebook's
 > [Terms of Service](https://www.facebook.com/legal/terms). Facebook may rate-limit,
@@ -51,10 +55,12 @@ Real run — first time, keep the browser visible so you can log in:
 ```bash
 python -m golf_scraper.main \
   --query "golf clubs" \
-  --location "<your-city-slug>" \
-  --max-price 400 --min-margin 0.4 \
-  --new-only
+  --max-price 600 --min-margin 0.4 \
+  --new-only --web --serve
 ```
+
+(Location defaults to Ottawa; `--web --serve` also publishes the mobile
+dashboard at `http://localhost:8000/`.)
 
 A Chromium window opens. Log into Facebook within the timeout, then leave it
 open — the scraper continues automatically and remembers the login next time
@@ -67,11 +73,38 @@ cp config.example.yaml config.yaml   # edit it
 python -m golf_scraper.main -c config.yaml
 ```
 
-## Finding your `--location`
+## The mobile dashboard (view it on your phone)
 
-Open Facebook Marketplace in a browser, set your location and radius, and search.
-The URL looks like `facebook.com/marketplace/<location>/search?query=...`. Copy
-the `<location>` part (e.g. `nyc`, `austin`, or a numeric id) into `--location`.
+Add `--web` to refresh the dashboard data, then `--serve` to host it:
+
+```bash
+python -m golf_scraper.main --demo samples/demo_listings.json --web --serve
+# → Dashboard live at http://localhost:8000/
+```
+
+`--web` writes `webapp/data.js`; the dashboard (`webapp/index.html`) is a
+self-contained mobile-first page — no build step, no external libraries — with
+search, "deals only" filter, sort, and tappable cards that open each listing.
+
+**To see it on your phone:** run the scraper on a computer on your home Wi-Fi
+with `--serve`, find that computer's local IP (e.g. `192.168.1.42`), and open
+`http://192.168.1.42:8000/` in your phone's browser. You can also just open
+`webapp/index.html` directly — the data is embedded, so it works offline too.
+
+For a real run that scrapes and refreshes the dashboard in one go:
+
+```bash
+python -m golf_scraper.main --query "golf clubs" --web --serve
+```
+
+## Location & currency
+
+The default `--location ottawa` and CAD price book target the Ottawa, Ontario
+market. To search elsewhere, open Facebook Marketplace, set your location and
+radius, and search — the URL looks like
+`facebook.com/marketplace/<location>/search?query=...`. Copy the `<location>`
+part (e.g. `toronto`, `montreal`, or a numeric id) into `--location`, and tune
+`data/reference_prices.json` to that market.
 
 ## Useful flags
 
@@ -85,6 +118,8 @@ the `<location>` part (e.g. `nyc`, `austin`, or a numeric id) into `--location`.
 | `--deals-only` | Show only listings that clear the margin bar |
 | `--new-only` | Show only listings not seen on a previous run |
 | `--csv` / `--json` | Export results |
+| `--web` | Refresh the mobile dashboard data (`webapp/data.js`) |
+| `--serve [PORT]` | Host the dashboard (default port 8000) to view on your phone |
 | `--headless` | Run without a visible window (only after first login) |
 | `--max-scrolls` | How far to scroll results — keep modest |
 
@@ -92,7 +127,8 @@ the `<location>` part (e.g. `nyc`, `austin`, or a numeric id) into `--location`.
 
 The default `data/reference_prices.json` ships with rough numbers. **Your profit
 depends entirely on these being accurate for your market.** For each club you
-care about, check recent eBay *sold* listings and update the `resale` value.
+care about, check recent eBay.ca *sold* listings (and local Facebook "sold"
+comparables) and update the `resale` value.
 Add new entries for models you flip; the matcher uses the most specific entry
 whose keywords all appear in the title (plurals handled, so `iron` matches
 `irons`). Point at your own file with `--reference my_prices.json`.

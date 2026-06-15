@@ -10,7 +10,7 @@ from pathlib import Path
 from .deals import DealAnalyzer
 from .models import Listing
 from .pricing import PriceBook
-from .report import print_table, write_csv, write_json
+from .report import print_table, write_csv, write_json, write_webapp_data
 from .storage import Store
 
 
@@ -41,8 +41,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("-c", "--config", help="Path to YAML/JSON config file.")
     parser.add_argument("-q", "--query", default="golf clubs",
                         help="Search query (default: 'golf clubs').")
-    parser.add_argument("--location", default="",
-                        help="Marketplace location slug/id, e.g. your city.")
+    parser.add_argument("--location", default="ottawa",
+                        help="Marketplace location slug/id (default: ottawa).")
     parser.add_argument("--min-price", type=int, default=None)
     parser.add_argument("--max-price", type=int, default=None)
     parser.add_argument("--radius-km", type=int, default=None)
@@ -66,6 +66,12 @@ def build_arg_parser() -> argparse.ArgumentParser:
                         help="Path to a custom reference_prices.json.")
     parser.add_argument("--csv", default=None, help="Write results to CSV.")
     parser.add_argument("--json", default=None, help="Write results to JSON.")
+    parser.add_argument("--web", action="store_true",
+                        help="Update the mobile dashboard (webapp/data.js).")
+    parser.add_argument("--serve", type=int, nargs="?", const=8000, default=None,
+                        metavar="PORT",
+                        help="After running, serve the dashboard on this port "
+                             "(default 8000) so you can open it on your phone.")
     parser.add_argument("--limit", type=int, default=25,
                         help="How many rows to print.")
     parser.add_argument("--deals-only", action="store_true",
@@ -165,7 +171,40 @@ def run(args: argparse.Namespace) -> int:
     if args.json:
         write_json(shown, args.json)
         print(f"Wrote JSON: {args.json}")
+
+    webapp_dir = Path(__file__).resolve().parent.parent / "webapp"
+    if args.web or args.serve is not None:
+        from datetime import datetime
+        meta = {
+            "location": args.location,
+            "query": args.query,
+            "currency": price_book.currency,
+            "min_margin": args.min_margin,
+            "generated": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        }
+        data_path = webapp_dir / "data.js"
+        write_webapp_data(ranked, str(data_path), meta)
+        print(f"Updated dashboard data: {data_path}")
+
+    if args.serve is not None:
+        _serve(webapp_dir, args.serve)
     return 0
+
+
+def _serve(directory: Path, port: int) -> None:
+    import functools
+    import http.server
+    import socketserver
+
+    handler = functools.partial(
+        http.server.SimpleHTTPRequestHandler, directory=str(directory)
+    )
+    with socketserver.TCPServer(("0.0.0.0", port), handler) as httpd:
+        print(f"\nDashboard live at http://localhost:{port}/  (Ctrl+C to stop)")
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nStopped.")
 
 
 def main(argv: list[str] | None = None) -> int:
