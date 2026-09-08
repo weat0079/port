@@ -46,6 +46,13 @@ class Store:
         )
         return cur.fetchone() is not None
 
+    def all_listings(self) -> list[Listing]:
+        """Return every stored listing, best deal first."""
+        cur = self.conn.execute(
+            "SELECT * FROM listings ORDER BY deal_score DESC"
+        )
+        return [Listing(**dict(row)) for row in cur.fetchall()]
+
     def upsert(self, listing: Listing) -> bool:
         """Insert a listing. Returns True if it was new."""
         new = not self.is_known(listing.listing_id)
