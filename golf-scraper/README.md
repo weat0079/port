@@ -1,13 +1,40 @@
-# Golf Club Deal Finder (Facebook Marketplace)
+# Golf Flip Finder — Ottawa (Facebook Marketplace)
 
-Finds underpriced golf clubs on Facebook Marketplace and ranks them by how much
-profit you could make reselling them. It drives a **real browser you log into
-yourself**, estimates each club's resale value from a tunable price book, and
-sorts listings by expected profit and margin. Defaults are set for **Ottawa,
-Ontario** with prices in **CAD**, and it ships with a **mobile web dashboard**
-you can open on your phone.
+A real, runnable app that finds underpriced golf clubs on Facebook Marketplace
+in **Ottawa, Ontario** and ranks them by how much profit you could make
+reselling them. Run one command, open the page on your computer or phone, and
+click **Find deals** — it opens a browser for you to log into Facebook, scrapes
+live Ottawa listings, estimates each club's resale value (in CAD), and shows the
+best flips first.
 
-![dashboard preview](docs/dashboard.png)
+![app preview](docs/dashboard.png)
+
+## Run the app
+
+```bash
+cd golf-scraper
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+playwright install chromium      # one-time browser download
+
+python -m golf_scraper.app       # starts the app + opens the dashboard
+```
+
+You'll see:
+
+```
+  ⛳  Golf Flip Finder — Ottawa
+     On this computer:  http://localhost:8000/
+     On your phone:     http://192.168.1.42:8000/   (same Wi-Fi)
+```
+
+Click **Find deals** in the page. A Chromium window opens — log into Facebook
+once (the login is remembered for next time), and it scrapes live Ottawa golf
+listings and fills the dashboard. **To use it on your phone:** run the command
+on a computer on your home Wi-Fi and open the phone URL it prints.
+
+> The scrape runs on the machine hosting the app (where the browser and your
+> Facebook login live). Your phone just views the results.
 
 > ⚠️ **Read this first.** Scraping Facebook Marketplace is against Facebook's
 > [Terms of Service](https://www.facebook.com/legal/terms). Facebook may rate-limit,
@@ -16,15 +43,15 @@ you can open on your phone.
 > gently with human-like pauses, and stores results locally. It does **not**
 > bypass logins, solve CAPTCHAs, hide automation, or harvest at scale, and you
 > should not modify it to do so. Use it at your own risk, and consider the
-> official [Facebook Graph API / Commerce APIs] if you need a sanctioned feed.
+> official Facebook Graph API / Commerce APIs if you need a sanctioned feed.
 > Resale price estimates are rough guesses, not financial advice — always sanity
-> check against real eBay "sold" prices before buying.
+> check against real eBay.ca "sold" prices before buying.
 
 ## How it works
 
 1. **Scrape** — Playwright opens Chromium with a *persistent profile*. You log
    into Facebook by hand once; the session is reused on later runs. It navigates
-   to your Marketplace search, scrolls a few times, and reads the listing cards.
+   to the Ottawa Marketplace search, scrolls a few times, and reads the cards.
 2. **Price** — each listing title is matched against `data/reference_prices.json`
    (brand/model → typical used resale value), adjusted by condition hints in the
    title ("like new", "for parts", etc.).
@@ -33,24 +60,16 @@ you can open on your phone.
 4. **Track** — results go into a local SQLite DB so you can ask for only the
    listings that are *new since last run* with `--new-only`.
 
-## Install
+## CLI (optional — for automation)
 
-```bash
-cd golf-scraper
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-playwright install chromium      # one-time browser download
-```
-
-## Quick start
-
-Try the pipeline with no scraping (uses bundled sample listings):
+The same engine is scriptable if you'd rather not use the app. Try it with no
+scraping (bundled sample listings):
 
 ```bash
 python -m golf_scraper.main --demo samples/demo_listings.json
 ```
 
-Real run — first time, keep the browser visible so you can log in:
+A real run, exporting the dashboard and serving it:
 
 ```bash
 python -m golf_scraper.main \
@@ -59,54 +78,23 @@ python -m golf_scraper.main \
   --new-only --web --serve
 ```
 
-(Location defaults to Ottawa; `--web --serve` also publishes the mobile
-dashboard at `http://localhost:8000/`.)
-
-A Chromium window opens. Log into Facebook within the timeout, then leave it
-open — the scraper continues automatically and remembers the login next time
-(so you can later add `--headless`).
-
-Or put everything in a config file:
+(Location defaults to Ottawa.) Or use a config file:
 
 ```bash
 cp config.example.yaml config.yaml   # edit it
 python -m golf_scraper.main -c config.yaml
 ```
 
-## The mobile dashboard (view it on your phone)
-
-Add `--web` to refresh the dashboard data, then `--serve` to host it:
-
-```bash
-python -m golf_scraper.main --demo samples/demo_listings.json --web --serve
-# → Dashboard live at http://localhost:8000/
-```
-
-`--web` writes `webapp/data.js`; the dashboard (`webapp/index.html`) is a
-self-contained mobile-first page — no build step, no external libraries — with
-search, "deals only" filter, sort, and tappable cards that open each listing.
-
-**To see it on your phone:** run the scraper on a computer on your home Wi-Fi
-with `--serve`, find that computer's local IP (e.g. `192.168.1.42`), and open
-`http://192.168.1.42:8000/` in your phone's browser. You can also just open
-`webapp/index.html` directly — the data is embedded, so it works offline too.
-
-For a real run that scrapes and refreshes the dashboard in one go:
-
-```bash
-python -m golf_scraper.main --query "golf clubs" --web --serve
-```
-
 ## Location & currency
 
-The default `--location ottawa` and CAD price book target the Ottawa, Ontario
-market. To search elsewhere, open Facebook Marketplace, set your location and
-radius, and search — the URL looks like
+The app is locked to **Ottawa, Ontario** with a CAD price book. The CLI defaults
+to Ottawa too but can point elsewhere: open Facebook Marketplace, set your
+location and radius, and search — the URL looks like
 `facebook.com/marketplace/<location>/search?query=...`. Copy the `<location>`
 part (e.g. `toronto`, `montreal`, or a numeric id) into `--location`, and tune
 `data/reference_prices.json` to that market.
 
-## Useful flags
+## Useful flags (CLI)
 
 | Flag | What it does |
 |------|--------------|
@@ -150,4 +138,3 @@ no browser required.
   location, thumbnail). It does not open each listing or message sellers.
 - Keep runs occasional and the scroll count low to stay under the radar and be
   respectful of Facebook's infrastructure.
-```

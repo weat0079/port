@@ -34,6 +34,41 @@ body {
 .app-header h1 { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; }
 .sub { margin: .15rem 0 0; font-size: .8rem; opacity: .9; }
 
+.scan-btn {
+  margin-left: auto;
+  background: #fff;
+  color: var(--green-dark);
+  border: none;
+  border-radius: 999px;
+  padding: .55rem 1.1rem;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.scan-btn:disabled { opacity: .6; cursor: default; }
+.scan-btn:active { transform: translateY(1px); }
+
+.status {
+  margin-top: .7rem;
+  background: rgba(255,255,255,.16);
+  border-radius: 10px;
+  padding: .5rem .8rem;
+  font-size: .82rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.status.err { background: rgba(192,57,43,.35); }
+.spinner {
+  width: 14px; height: 14px; flex: 0 0 auto;
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
 .stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
